@@ -9,5 +9,4 @@ public class OpenlabMagasinApplication {
     public static void main(String[] args) {
         SpringApplication.run(OpenlabMagasinApplication.class, args);
     }
-
 }
