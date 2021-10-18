@@ -42,8 +42,8 @@ public class MagasinController {
 
     @PostMapping(path = "/")
     @ApiOperation(value="Create a magasin")
-    public Magasin saveMagasin(Magasin magasin) {
-        return magasinService.saveMagasin(magasin);
+    public Magasin createMagasin(Magasin magasin) {
+        return magasinService.createMagasin(magasin);
     }
 
     @DeleteMapping(path = "/{code}")

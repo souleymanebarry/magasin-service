@@ -32,10 +32,10 @@ public class MagasinServiceImpl implements MagasinService {
     }
 
     @Override
-    public Magasin saveMagasin(Magasin magasin) {
+    public Magasin createMagasin(Magasin magasin) {
         Optional<Magasin> optionalMagasin=magasinRepository.findById(magasin.getCode());
         if (optionalMagasin.isPresent()){
-            throw new ConflictException("Magasin already exists");
+            throw new ConflictException("Magasin already exist");
         }
         return magasinRepository.save(magasin);
     }
@@ -43,11 +43,14 @@ public class MagasinServiceImpl implements MagasinService {
     @Override
     public void deleteMagasin(String code) {
         ParamUtils.validateCodeMagasin(code);
+        magasinRepository.findById(code)
+                .orElseThrow(()-> new IllegalArgumentException("Magasin not found"));
         magasinRepository.deleteById(code);
     }
 
     @Override
     public Magasin updateMagasin(String code, Magasin magasin) {
+        ParamUtils.validateCodeMagasin(code);
         magasinRepository.findById(code)
                 .orElseThrow(()-> new RuntimeException("Magasin not found"));
         magasin.setCode(code);
