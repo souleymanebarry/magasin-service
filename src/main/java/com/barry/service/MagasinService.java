@@ -21,7 +21,7 @@ public interface MagasinService {
      * @param magasin
      * @return magasin
      */
-    Magasin saveMagasin(Magasin magasin);
+    Magasin createMagasin(Magasin magasin);
 
     /**
      *  update magasin by code
