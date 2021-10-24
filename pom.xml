@@ -8,11 +8,14 @@
         <version>2.5.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>com.barry</groupId>
     <artifactId>openlab-magasin</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-RC1</version>
+    <packaging>jar</packaging>
     <name>openlab-magasin</name>
-    <description>openlab-magasin</description>
+    <description>openlab-magasinCoreWS project based on Spring Boot</description>
+
     <properties>
         <java.version>11</java.version>
         <swagger.version>2.9.2</swagger.version>
