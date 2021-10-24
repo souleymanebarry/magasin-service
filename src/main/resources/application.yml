@@ -13,3 +13,6 @@ spring:
     init:
       platform: postgres
 
+# swagger-ui.html redirect from base url (nothing mean /)
+swagger-ui:
+  redirect:
