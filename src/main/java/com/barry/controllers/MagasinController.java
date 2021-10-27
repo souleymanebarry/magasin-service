@@ -36,7 +36,7 @@ public class MagasinController {
     @GetMapping(path = "/{code}")
     @ApiOperation("Load magasin By Id")
     public Magasin getMagasinByCode(String code) {
-        log.info("find magasin by code{}",code);
+        log.info("find magasin by code: {}",code);
         return magasinService.getMagasinByCode(code);
     }
 
@@ -49,7 +49,7 @@ public class MagasinController {
     @DeleteMapping(path = "/{code}")
     @ApiOperation(value="delete a magasin by it's code")
     public void deleteMagasin(String code) {
-        log.info("delete magasin by code{}",code);
+        log.info("delete magasin by code: {}",code);
         magasinService.deleteMagasin(code);
     }
 
@@ -57,7 +57,7 @@ public class MagasinController {
     @PutMapping(path = "/{code}")
     @ApiOperation(value="Update a magasin")
     public Magasin updateMagasin(String code, Magasin magasin) {
-        log.info("update magasin by code{}",code);
+        log.info("update magasin by code: {}",code);
         return magasinService.updateMagasin(code,magasin);
     }
 }
