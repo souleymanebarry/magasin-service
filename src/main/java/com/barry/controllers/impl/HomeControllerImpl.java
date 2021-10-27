@@ -1,5 +1,6 @@
-package com.barry.controllers;
+package com.barry.controllers.impl;
 
+import com.barry.controllers.HomeController;
 import org.springframework.stereotype.Controller;
 
 @Controller

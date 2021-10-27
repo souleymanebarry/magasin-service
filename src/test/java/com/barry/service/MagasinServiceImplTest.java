@@ -3,9 +3,7 @@ package com.barry.service;
 
 import com.barry.dao.MagasinRepository;
 import com.barry.entities.Magasin;
-import com.barry.exceptions.BadRequestException;
-import com.barry.exceptions.ConflictException;
-import com.barry.exceptions.ResourceNotFoundException;
+import com.barry.exceptionshandler.CustomCodeMessageException;
 import com.barry.service.impl.MagasinServiceImpl;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -69,10 +67,10 @@ class MagasinServiceImplTest {
     @Test
     void test_getMagasinByCode_whenUnknownMagasinCode_returnThrowResourceNotfound(){
         //given
-        when(magasinRepository.findById("ZZ")).thenThrow(new ResourceNotFoundException("not_found"));
+       // when(magasinRepository.findById("ZZ")).thenThrow(new ResourceNotFoundException("not_found"));
 
         //when
-        assertThrows(ResourceNotFoundException.class,
+        assertThrows(CustomCodeMessageException.class,
                 ()-> magasinService.getMagasinByCode("ZZ"), "???not_found???");
 
         //then
@@ -83,14 +81,14 @@ class MagasinServiceImplTest {
 
     @Test
     void test_getMagasinByCode_whenMagasinCodeIsEmpty_returnThrowBadRequestException() {
-        assertThrows(BadRequestException.class,
+        assertThrows(CustomCodeMessageException.class,
                 () -> magasinService.getMagasinByCode(""), "???it needs to be non empty???");
         verifyNoMoreInteractions(magasinRepository);
     }
 
     @Test
     void test_getMagasinByCode_whenMagasinCodeIsBlank_returnThrowBadRequestException() {
-        assertThrows(BadRequestException.class,
+        assertThrows(CustomCodeMessageException.class,
                 () -> magasinService.getMagasinByCode(" "), "???it needs to be non Blank???");
         verifyNoMoreInteractions(magasinRepository);
     }
@@ -99,7 +97,7 @@ class MagasinServiceImplTest {
     @ValueSource(strings = {""," ", "\t"})
     @NullSource
     void test_getMagasinByCode_should_not_accept_empty_or_blank_code(String code) {
-        assertThrows(BadRequestException.class,
+        assertThrows(CustomCodeMessageException.class,
                 () -> magasinService.getMagasinByCode(code));
         verifyNoMoreInteractions(magasinRepository);
     }
@@ -149,7 +147,7 @@ class MagasinServiceImplTest {
 
         //when
         when(magasinRepository.findById("222")).thenReturn(magasin);
-        assertThrows(ConflictException.class,()->
+        assertThrows(CustomCodeMessageException.class,()->
             magasinService.createMagasin(magasin.get())
         );
 
@@ -181,7 +179,7 @@ class MagasinServiceImplTest {
     @ValueSource(strings = {""," ", "\t"})
     @NullSource
     void  test_deleteMagasinByCode_should_not_accept_empty_or_blank_or_null_code(String code){
-        assertThrows(BadRequestException.class, ()->
+        assertThrows(CustomCodeMessageException.class, ()->
                 magasinService.deleteMagasin(code)
                 );
         verifyNoInteractions(magasinRepository);
@@ -195,7 +193,7 @@ class MagasinServiceImplTest {
 
         //when
         when(magasinRepository.findById("xxx")).thenReturn(magasin);
-        Magasin updateMagasin = magasinService.updateMagasin("xxx", magasin.get());
+        magasinService.updateMagasin("xxx", magasin.get());
 
         verify(magasinRepository, times(1)).findById("xxx");
     }
@@ -204,7 +202,7 @@ class MagasinServiceImplTest {
     @ValueSource(strings = {""," ", "\t"})
     @NullSource
     void test_updateMagasin_should_not_accept_empty_or_blank_or_null_code(String code){
-        assertThrows(BadRequestException.class, ()->
+        assertThrows(CustomCodeMessageException.class, ()->
                 magasinService.updateMagasin(code,new Magasin())
         );
     }
